@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Horizontal Bar Chart</title>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <style>
+        h1{
+            margin: 20px;
+        }    
+        div {
+            margin: 20px;
+            border: 2px solid black;
+            height: 40px;
+            line-height: 40px;
+            color: white;
+            font-weight: bold;
+            font-size: 40px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Horizontal Bar Chart</h1>
+    <script>
+        var bars = d3.select("body").selectAll("div").data([15, 32, 10, 8, 60, 24]);
+
+        bars.enter().append("div").style("background-color", function (c) 
+        { return "rgb(0, " + 4 * c + ", 0)"}).style("width", function(d) { return 10 * d + "px"; })
+        .append("text").text(function (t) {
+            return t;
+        });
+        
+        bars.exit().remove();
+    </script>
+</body>
+</html>

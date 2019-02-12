@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>D3 Bar Chart</title>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <style>
+        #chart div {     
+            display: inline-block;
+            width: 20px;
+            height: 50px;
+            vertical-align: bottom;
+            background-color: lightblue;
+            margin-right: 20px;
+            border: 1px solid black;
+        }
+        button {
+            display: block;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: gray;
+            font-weight: bold;
+            border-radius: 10px;
+            border: none;
+            margin: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "chart"></div>
+    <button onclick = "randomsGenerator()">Generate Random Numbers</button>
+    
+    <script>
+        var bars = d3.select("#chart")
+            .selectAll("div")
+            .data([4, 8, 15, 16, 20, 12]);
+        
+        bars.enter().append("div")
+            .text(function(d){ return d; })
+            .style("height", function(d){ return d * 20 + "px" });
+
+        function randomsGenerator(){
+            var nums = [];
+            var size = Math.floor(Math.random() * 20 + 1);
+            for (var i = 0; i < size; i++){
+                nums.push(Math.floor(Math.random() * 20));
+            }
+            buildChart(nums);
+        }
+
+        function buildChart(newdata){
+            var bars = d3.select("#chart")
+                .selectAll("div")
+                .data(newdata);
+
+            bars.transition()
+                .duration(1500)
+                .text(function(d){ return d; })
+                .style("height", function(d){ return d * 20 + "px" })
+                .style("background-color", "lightgrey");
+            bars.enter().append("div")
+                .transition()
+                .duration(1500)
+                .text(function(d){ return d; })
+                .style("height", function(d){ return d * 20 + "px" })
+                .style("background-color", "lightblue");
+            bars.exit().remove();
+        }
+    </script>
+</body>
+</html>
